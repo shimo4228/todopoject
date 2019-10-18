@@ -1,0 +1,35 @@
+<!--base.htmlからテンプレートを継承-->
+{% extends 'base.html' %}
+
+<!--ヘッダーブロック-->
+{% block header %}
+<div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Todolist</h1>
+          <p class="lead">Todolistを作って毎日を能率的に過ごしましょう。</p>
+        </div>
+      </div>
+{% endblock header %}
+
+<!--コンテントブロック-->
+{% block content %}
+<!--クラスをコンテナに指定することでブロックの幅をいい感じにしてくれる-->
+<div class='container'>
+        <!--新規作成ボタンを作成-->
+        <a href="{% url 'create' %}" class="btn btn-info" tabindex="-1" role="button" aria-disabled="true">新規作成</a>
+    <!--データベースから繰り返し処理でタイトルおよびメモを表示-->
+    {% for item in object_list %}
+    <!--item.priorityはデータベースの優先順位欄の項目オブジェクト名-->
+    <div class="alert alert-{{ item.priority }}" role="alert">
+        <p>{{ item.title }}　　期日：{{item.duedate}}</p>
+        <!--{% url 'update' item.pk %}はdjangoのテンプレートタグ。前半が指定したページのＵＲＬで、item.pkがアイテムのＩＤの数字-->
+        <!--編集ボタンの作成-->
+        <a href="{% url 'update' item.pk %}" class="btn btn-info" tabindex="-1" role="button" aria-disabled="true">編集</a>
+        <!--削除ボタンの作成-->
+        <a href="{% url 'delete' item.pk %}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">削除</a>
+        <!--詳細ボタンの作成-->
+        <a href="{% url 'detail' item.pk %}" class="btn btn-success" tabindex="-1" role="button" aria-disabled="true">詳細</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

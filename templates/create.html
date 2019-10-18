@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!--formタグで作成フォームを作成-->
+<!--{% csrf_token %}はdjangoのセキュリティ対策のテンプレート-->
+<form action = "" method = "POST"> {% csrf_token %}
+    <!--djangoの機能。フォームをｐタグ内に配置-->
+    {{form.as_p}}
+    <!--formの送信ボタンの作成-->
+    <input type = "submit" value = "作成する">
+</form>
+
+{% endblock content %}
